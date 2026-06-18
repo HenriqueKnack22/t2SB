@@ -8,12 +8,14 @@ static mymemory_t *mem = NULL;
 static void       *alocados[MAX_ALOCACOES];
 static int         num_alocados = 0;
 
+/* Descarta os caracteres restantes no buffer de entrada ate encontrar '\n' ou EOF. */
 static void limpar_buffer(void)
 {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
+/* Solicita ao usuario o tamanho e a estrategia de alocacao, inicializa e retorna o pool de memoria. */
 static mymemory_t *configurar_pool(void)
 {
     size_t tamanho;
@@ -56,6 +58,7 @@ static mymemory_t *configurar_pool(void)
     return novo;
 }
 
+/* Le o tamanho desejado, aloca no pool e registra o ponteiro no vetor de alocacoes ativas. */
 static void alocar(void)
 {
     if (num_alocados >= MAX_ALOCACOES) {
@@ -84,6 +87,7 @@ static void alocar(void)
            tamanho, offset, num_alocados - 1);
 }
 
+/* Lista as alocacoes ativas, solicita o indice a liberar e devolve o bloco ao pool. */
 static void liberar(void)
 {
     if (num_alocados == 0) {
@@ -119,6 +123,7 @@ static void liberar(void)
     alocados[idx] = NULL;
 }
 
+/* Destroi o pool atual, zera o vetor de alocacoes e reconfigura um novo pool do zero. */
 static void reiniciar(void)
 {
     mymemory_cleanup(mem);
@@ -130,6 +135,7 @@ static void reiniciar(void)
     mem = configurar_pool();
 }
 
+/* Ponto de entrada: inicializa o pool e executa o loop de menu ate o usuario sair. */
 int main(void)
 {
     mem = configurar_pool();

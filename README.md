@@ -22,3 +22,51 @@ Como rodar:
   ├───────┼───────────────────────────────────────────┤
   │ 6     │ Aloca 8b → aqui as estratégias divergem   │
   └───────┴───────────────────────────────────────────┘
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  │   Conceito   │                                   O que é                                   │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ malloc       │ Reserva memória no heap do SO                                               │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ free         │ Libera memória alocada com malloc                                           │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ Memory Pool  │ Bloco único pré-alocado; alocações internas não chamam malloc de novo       │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ heap         │ Região de memória do processo gerenciada manualmente                        │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ offset       │ Distância em bytes do início do pool até um ponteiro                        │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ allocation_t │ Nó de lista encadeada representando um bloco em uso                         │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ Linked list  │ Estrutura onde cada nó aponta para o próximo                                │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ Fragmentação │ Espaços livres espalhados que individualmente não cabem uma alocação grande │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ First Fit    │ Usa o primeiro buraco livre que couber o pedido                             │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ Best Fit     │ Usa o menor buraco que couber exatamente                                    │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ Worst Fit    │ Usa o maior buraco disponível                                               │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ strategy_t   │ Enum que define qual estratégia de alocação o pool usa                      │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ size_t       │ Tipo inteiro sem sinal para representar tamanhos de memória                 │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ void*        │ Ponteiro genérico sem tipo definido                                         │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ Coalescência │ Junção de dois blocos livres adjacentes em um bloco maior                   │
+  ├──────────────┼─────────────────────────────────────────────────────────────────────────────┤
+  │ mymemory_t   │ Struct principal que representa o pool inteiro                              │
+  └──────────────┴─────────────────────────────────────────────────────────────────────────────┘
